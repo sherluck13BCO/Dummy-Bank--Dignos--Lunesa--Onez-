@@ -8,7 +8,9 @@ passport.use(new TwitterPassport({
     callbackURL: 'http://localhost:3000/auth/twitter/callback'
 }, function(token, secret, profile, cb) {
     User.findOrCreate({
-        where: { email: profile.username },
+        where: { 
+            email: profile.username,
+            name: profile.displayName },
         defaults: { password: '' }
     }).then(function(result) {
         cb(null, result[0]);
@@ -24,5 +26,9 @@ passport.deserializeUser(function(id, done) {
         done(null, user);
     });
 });
+
+
+
+
 
 module.exports = passport;
