@@ -24,6 +24,7 @@ app.use(passport.initialize());
 app.use('/static', express.static('./static'));
 app.use(require('./routes/auth'));
 app.use(require('./routes/twitter'));
+app.use(require('./routes/google'));
 
 
 app.get('/', function(req, res) {
@@ -33,8 +34,6 @@ app.get('/', function(req, res) {
 
 var user = function retrieveSignedInUser(req, res, next) {
     req.user = req.session.currentUser;
-   	console.log("halu")
-   	console.log(req.user);
     next();
 }
 
@@ -50,9 +49,7 @@ app.use(user);
 app.get('/profile', requireSignedIn, function(req, res) {
 
 	const email = req.user;
-	console.log("WHAT HAPPENED?" + req.session.currentUser);
 	const name = email;
-	console.log("NAME" + name);
 	User.findOne({ where: {name: name} }).then(function(user) {
 		res.render('profile.html', {
 			user: user
