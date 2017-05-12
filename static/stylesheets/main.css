@@ -71,7 +71,7 @@ body {
     border-color: #ccc;
 }
 .btn-login {
-    background-color:#3D9DB3;
+    background-color:maroon;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -79,16 +79,15 @@ body {
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #2d92a9;
+    border-color: maroon;
 }
 .btn-login:hover,
 .btn-login:focus {
     color: #fff;
-    background-color: #198da8;
-    border-color: #53A3CD;
+    opacity: 0.5;
 }
 .btn-register {
-    background-color: #17ae47;
+    background-color: maroon;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -96,13 +95,11 @@ body {
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #1CB94A;
 }
 .btn-register:hover,
 .btn-register:focus {
     color: #fff;
-    background-color: #1CA347;
-    border-color: #1CA347;
+    opacity: 0.5;
 }
 
 .fullscreen_bg {
@@ -137,4 +134,8 @@ body {
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;*/
     color: maroon;
+}
+
+.msg {
+	text-align: center;
 }

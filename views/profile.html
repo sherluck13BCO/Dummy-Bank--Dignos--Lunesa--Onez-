@@ -1,47 +1,161 @@
-<!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Profile | Dummy Bank</title>
-        <link rel="stylesheet" href="/static/stylesheets/main.css">
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--[if IE]>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+    <title>Bootstrap user profile template</title>
+    <!-- BOOTSTRAP STYLE SHEET -->
+    <link rel="stylesheet" href="/static/stylesheets/bootstrap.css">
 
-    <body>
-        <p>{{ messages.statusMessage }}</p>
+    <style type="text/css">
+        .btn-submit {
+          margin-top: 10px;
+          padding-top: 5px;
+          background-color: #ebd9e5;
+          color:black;
+          opacity: 0.6;
+        }
+        .btn-submit:hover {
+          opacity: 1;
+          text-decoration: none;
+        }
+        .navbar-brand:hover{
+          font-weight: bold;
+        }
+        .navbar-default {
+          background-color: #dbedff;
+        }
+        .alert-info{
+          background-color: #ebd9e5;
+          opacity: 0.4;
+        }
+    </style>
 
-        <h1>{{ user.email }}</h1>
-        <a href="/signout">Sign Out</a>
-
-        <form action="/transfer" method="post">
-			<div>
-				<label for="recipient">Transfer To</label>
-				<input type="text" name="recipient" id="recipient">
-			</div>
-			<div>
-				<label for="amount">Transfer Amount</label>
-				<input type="number" name="amount" id="amount">
-			</div>
-
-            <button>Transfer</button>
-        </form>
-
-         <form action="/deposit" method="post">
-            <div>
-                <label for="depositamt">Deposit Amount</label>
-                <input type="number" name="depositamt" id="depositamt">
+</head>
+<body>
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">DUMMY BANK</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/signout">SIGN OUT</a></li>
+                </ul>
             </div>
 
-            <button>Deposit</button>
-        </form>
+        </div>
+    </div>
+    <!-- NAVBAR CODE END -->
 
-        <form action="/withdraw" method="post">
-            <div>
-                <label for="withdrawamt">Withdraw Amount</label>
-                <input type="number" name="withdrawamt" id="withdrawamt">
+
+    <div class="container">
+      <section style="padding-bottom: 50px; padding-top: 25px;">
+        <div class="row">
+          <div class="col-md-4">
+            <img src="http://www.imran.com/xyper_images/icon-user-default.png" class="img-rounded img-responsive" />
+          </div>
+
+          <div class="col-md-8">
+            <div class="alert alert-info">
+              <h2>{{ user.email }}</h2>
             </div>
 
-            <button>Withdraw</button>
-        </form>
+            <div class="alert alert-success alert-dismissable fade in">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              {{ messages.statusMessage }}
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"  aria-controls="collapseOne" aria-expanded="false">
+                      Transfer cash
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body form-group">
+                    <!--transfer -->
+                    <form action="/transfer" method="post" >
+                      <div>
+                        <label for="recipient">Transfer To</label>
+                        <input type="text" name="recipient" id="recipient" class="form-control">
+                      </div>
+                      <div>
+                        <label for="amount">Transfer Amount</label>
+                        <input type="number" name="amount" id="amount" class="form-control">
+                      </div>
+                     <button class="btn btn-submit">Transfer</button>
 
-    </body>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Deposit
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body form-group">
+                    <form action="/deposit" method="post">
+                      <div>
+                          <label for="depositamt">Deposit Amount</label>
+                          <input type="number" name="depositamt" id="depositamt" class="form-control">
+                      </div>
+                      <button class="btn btn-submit">Deposit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingThree">
+                  <h4 class="panel-title">
+                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Withdraw
+                    </a>
+                  </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                  <div class="panel-body">
+                    <form action="/withdraw" method="post">
+                      <div>
+                          <label for="withdrawamt">Withdraw Amount</label>
+                          <input type="number" name="withdrawamt" id="withdrawamt" class="form-control">
+                      </div>
+                      <button class="btn btn-submit">Withdraw</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- REQUIRED SCRIPTS FILES -->
+    <!-- CORE JQUERY FILE -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- REQUIRED BOOTSTRAP SCRIPTS -->
+    <script src="/static/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/static/stylesheets/bootstrap.css">
+</body>
+
 </html>

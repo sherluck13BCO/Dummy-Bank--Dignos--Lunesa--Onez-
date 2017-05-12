@@ -5,6 +5,19 @@
         <title>Dummy Bank</title>
         <link rel="stylesheet" href="/static/stylesheets/main.css">
         <link rel="stylesheet" href="/static/stylesheets/bootstrap.css">
+        <link rel="stylesheet" href="/static/stylesheets/font-awesome.css">
+
+        <style>
+        .btn-twitter {
+            background-color: #00aced;
+            color: white;
+        }
+
+        .btn-google {
+            background-color: #c32f10;
+            color:white;
+        }
+        </style>
     </head>
 
     <body>
@@ -47,53 +60,30 @@
         </form>-->
 
         <div id="fullscreen_bg" class="fullscreen_bg"/>
-<div id="regContainer" class="container"><div class="col-md-6 col-md-offset-3"><div class="panel panel-title">Welcome to Dummy Bank!{{ messages.statusMessage }}</div></div></div>
-<div id="regContainer" class="container">
+          <div id="regContainer" class="container"><div class="col-md-6 col-md-offset-3"><div class="panel panel-title">Welcome to Dummy Bank!{{ messages.statusMessage }}</div></div></div>
+    <div id="regContainer" class="container">
       <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-login">
           <div class="panel-heading">
             <div class="row">
-              <div class="col-xs-6">
-                <a href="#" class="active" id="login-form-link">LOGIN</a>
+
+            <div class="col-xs-6">
+                <a href="#" class="active" id="register-form-link">REGISTER</a>
               </div>
               <div class="col-xs-6">
-                <a href="#" id="register-form-link">REGISTER</a>
+                <a href="#" id="login-form-link">LOGIN</a>
               </div>
+              
             </div>
             <hr>
           </div>
           <div class="panel-body">
             <div class="row">
               <div class="col-lg-12">
-                
-                <form id="login-form" action="/signin" method="post" role="form" style="display: block;">
-                  <p>{{ messages.statusMessage }}</p>
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
-                  </div>
 
-                  <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-                  </div>
-
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-sm-6 col-sm-offset-3">
-                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
-                      </div>
-                    </div>
-                  </div>
-
-                  <a href="/auth/twitter">Sign In with Twitter</a>
-                </form>
-
-
-                <form id="register-form" action="/signup" method="post" role="form" style="display: none;">
-                    {{ messages.signUpMessage }}
-                    ddd
+                <form id="register-form" action="/signup" method="post" role="form" style="display: block;">
+                  <p class="msg">{{ messages.signUpMessage }}</p>
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Username" value="">
@@ -114,6 +104,33 @@
                     </div>
                   </div>
                 </form>
+                
+                <form id="login-form" action="/signin" method="post" role="form" style="display: none;">
+                  <p>{{ messages.statusMessage }}</p>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-6 col-sm-offset-3">
+                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                      </div>
+                    </div>
+                  </div>
+
+                  <a class= "btn btn-twitter" href="/auth/twitter">Sign In with Twitter</a>
+                  <a class= "btn btn-google" href="/auth/google">Sign In with Google</a>
+                </form>
+
+
+
               </div>
             </div>
           </div>
