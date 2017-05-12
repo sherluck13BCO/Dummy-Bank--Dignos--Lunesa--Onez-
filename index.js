@@ -65,26 +65,76 @@ app.post('/transfer', requireSignedIn, function(req, res) {
 	const amount = parseInt(req.body.amount, 10);
 
 	const  email = req.user;
-	User.findOne({ where: { email: email } }).then(function(sender) {
-		User.findOne({ where: { email: recipient } }).then(function(receiver) {
-			Account.findOne({ where: { user_id: sender.id } }).then(function(senderAccount) {
-				Account.findOne({ where: { user_id: receiver.id } }).then(function(receiverAccount) {
-					database.transaction(function(t) {
-						return senderAccount.update({
-							balance: senderAccount.balance - amount
-						}, { transaction: t }).then(function() {
-							return receiverAccount.update({
-								balance: receiverAccount.balance + amount
-							}, { transaction: t });
+	// User.findOne({ where: { email: email } }).then(function(sender) {
+	// 	User.findOne({ where: { email: recipient } }).then(function(receiver) {
+	// 		Account.findOne({ where: { user_id: sender.id } }).then(function(senderAccount) {
+	// 			Account.findOne({ where: { user_id: receiver.id } }).then(function(receiverAccount) {
+	// 				database.transaction(function(t) {
+	// 					return senderAccount.update({
+	// 						balance: senderAccount.balance - amount
+	// 					}, { transaction: t }).then(function() {
+	// 						return receiverAccount.update({
+	// 							balance: receiverAccount.balance + amount
+	// 						}, { transaction: t });
+	// 					});
+	// 				}).then(function() {
+	// 					req.flash('statusMessage', 'Transferred ' + amount + ' to ' + recipient);
+	// 					res.redirect('/profile');
+	// 				});
+	// 			});
+	// 		});
+	// 	});
+	// });
+
+	const q1 = "SELECT user_id, balance FROM accounts WHERE user_id IN (SELECT id FROM users WHERE email= '" + email + "')";
+	const q2 = "SELECT user_id, balance FROM accounts WHERE user_id IN (SELECT id FROM users WHERE email= '" + recipient + "')";
+
+	database.query(q1, { model: Account}).then(function(senderAccount) {
+		database.query(q2, { model:Account}).then(function(receiverAccount) {
+			database.transaction(function(t) {
+
+				var  sendBal = senderAccount.map(function(sensor){ return sensor.balance });
+					console.log(sendBal)
+				var recBal= receiverAccount.map(function(sensor){ return sensor.balance });
+				recBal = parseInt(recBal);
+					console.log(recBal)
+				var  sendid = senderAccount.map(function(sensor){ return sensor.user_id });
+				console.log("she")
+				console.log(sendid)
+				var recid= receiverAccount.map(function(sensor){ return sensor.user_id });
+				console.log(recid)
+
+						return Account.update({
+							balance: sendBal - amount
+						},{ where: {id: sendid} }, { transaction: t }).then(function() {
+							return Account.update({
+								balance: recBal + amount
+							},{ where: {id: recid} }, { transaction: t });
 						});
 					}).then(function() {
 						req.flash('statusMessage', 'Transferred ' + amount + ' to ' + recipient);
 						res.redirect('/profile');
 					});
-				});
-			});
-		});
-	});
+  
+ 	 })
+
+  })
+
+	// database.query(q1,{ replacements: { balance: balance.value - amount}, type: database.QueryTypes.SELECT }).then(function(projects) {
+ //  console.log(projects)
+ //   })
+	// 	database.query(q2,{ replacements: { balance: balance.value + amount}, type: database.QueryTypes.SELECT }).then(function(projects) {
+ //  console.log(projects)
+ //   })
+
+
+	
+
+
+
+
+
+
 });
 
 app.post('/deposit', requireSignedIn, function(req, res) {
@@ -158,6 +208,8 @@ function requireSignedIn(req, res, next) {
 
 // 	next();
 // }
+
+
 
 app.listen(3000, function() {
 	console.log('Server is now running at port 3000');
