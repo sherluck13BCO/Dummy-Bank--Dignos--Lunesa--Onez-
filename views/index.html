@@ -8,14 +8,25 @@
         <link rel="stylesheet" href="/static/stylesheets/font-awesome.css">
 
         <style>
+        .socmed{
+          text-align: center;
+        }
         .btn-twitter {
             background-color: #00aced;
             color: white;
+            text-align: center;
         }
 
         .btn-google {
             background-color: #c32f10;
             color:white;
+            text-align: center;
+        }
+        .btn-google:hover, .btn-twitter:hover {
+            /**background-color: #c32f10;*/
+            opacity: 0.6;
+            color:white;
+            text-align: center;
         }
         </style>
     </head>
@@ -124,14 +135,17 @@
                       </div>
                     </div>
                   </div>
-
-                  <a class= "btn btn-twitter" href="/auth/twitter">Sign In with Twitter</a>
-                  <a class= "btn btn-google" href="/auth/google">Sign In with Google</a>
                 </form>
 
-
+                <hr>
+                <div class="socmed">
+                  <a class= "btn btn-twitter" href="/auth/twitter"><span aria-hidden="true"><i class="fa fa-linkedin"></i></span>&nbsp;Sign In with Twitter</a>
+                  <a class= "btn btn-google" href="/auth/google"><span aria-hidden="true"><i class="fa fa-linkedin"></i></span>&nbsp;Sign In with Google</a>
+                </div>
 
               </div>
+
+
             </div>
           </div>
         </div>
