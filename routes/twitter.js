@@ -8,7 +8,9 @@ router_twitter.get('/auth/twitter/callback',
         failureRedirect: '/'
     }),
     function(req, res) {
-        req.session.currentUser = req.user.email;
+        req.session.currentUser = req.user.name;
+        console.log("USER " + req.session.currentUser);
+        console.log("WHYYY"); 
         res.redirect('/profile');
     }
 );
