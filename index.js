@@ -28,6 +28,7 @@ app.use(require('./routes/google'));
 
 
 app.get('/', function(req, res) {
+	console.log("HELLLOO");
 	res.render('index.html');
 });
 
@@ -47,7 +48,6 @@ app.use(user);
 
 
 app.get('/profile', requireSignedIn, function(req, res) {
-
 	const email = req.user;
 	const name = email;
 	User.findOne({ where: {name: name} }).then(function(user) {

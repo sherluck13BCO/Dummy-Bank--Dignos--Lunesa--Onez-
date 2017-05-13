@@ -26,32 +26,17 @@ passport.use(new GooglePassport({
   },
   function(request, accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
+    User.findOrCreate({
+        where: { 
+        email: profile.emails[0].value,
+        name: profile.displayName },
+
+        defaults: { password: '' }
+    })
       return done(null, profile);
     });
   }
 ));
-
-// passport.use(new GooglePassport({
-//     clientID: '505652816138-lu9iqtrh4eq63oovgq81uge0ie98s2mp.apps.googleusercontent.com',
-//     clientSecret: 'nK_FMWXElCSjjXUeTwwZc61M',
-//     callbackURL: 'http://localhost:3000/auth/google/callback',
-//     passReqToCallback   : true
-//   },
-//   function(request, accessToken, refreshToken, profile, done, cb) {
-//     process.nextTick(function () {
-//     User.findOrCreate({
-//         where: { 
-//             // email: profile.emails[0].value,
-//             name: profile.displayName },
-//         defaults: { password: '' }
-//     }).then(function(result) {
-//         cb(null, result[0]);
-//     });
-//     });
-//   }
-// ));
-
-
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);
