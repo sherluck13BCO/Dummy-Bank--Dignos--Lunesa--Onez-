@@ -19,6 +19,9 @@ const User = database.define('users', {
     password: {
         type: Sequelize.STRING,
         allowNull: false
+    },
+    avatar:{
+        type: Sequelize.STRING
     }
 }, {
     timestamps: true

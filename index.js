@@ -9,7 +9,9 @@ const database = require('./database');
 const User = require('./models').User;
 const Account = require('./models').Account;
 const middlewares = require("middlewares");
+const multer = require('multer');
 const app = express();
+const path = require('path');
 
 app.engine('html', consolidate.nunjucks);
 app.set('views', './views');
@@ -22,6 +24,7 @@ app.use(flash());
 app.use(passport.initialize());
 
 app.use('/static', express.static('./static'));
+app.use('/avatars', express.static('./uploads'));
 app.use(require('./routes/auth'));
 app.use(require('./routes/twitter'));
 app.use(require('./routes/google'));
@@ -174,6 +177,23 @@ app.post('/withdraw', requireSignedIn, function(req, res) {
 			});
 		});
 
+
+const upload = multer({dest: './uploads'})
+
+app.post('/upload-avatar', requireSignedIn, upload.single('avatar'), function(req, res){
+
+	const email = req.user;
+
+	User.findOne({ where: { email: email } }).then(function(user) {
+		user.update({avatar: '/avatars/' + req.file.filename}).then(function(){
+			res.redirect('/profile');
+			console.log("HAHAA " + user.avatar);
+		});
+		 
+	});
+
+	
+});
 
 
 /*app.get('/auth/twitter', passport.authenticate('twitter'));
